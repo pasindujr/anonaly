@@ -44,4 +44,32 @@ class AuthController extends Controller
             return back()->with('register-fail', 'Something went wrong, please try again later.');
         }
     }
+
+    public function check(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:5|max:14',
+        ]);
+
+        $userInfo = User::where('email', '=', $request->email)
+            ->first();
+        if (!$userInfo) {
+            return back()->with('login-fail', 'Sorry, invalid email address');
+        } else {
+            if (Hash::check($request->password, $userInfo->password) and $userInfo->is_admin == 0) {
+                $request->session()->put('loggedUser', $userInfo->userId);
+                $request->session()->put('isAdmin', 0);
+                return redirect('account');
+
+            } elseif (Hash::check($request->password, $userInfo->password) and $userInfo->is_admin == 1) {
+                $request->session()->put('loggedUser', $userInfo->userId);
+                $request->session()->put('isAdmin', 1);
+                return redirect('admin');
+
+            } else {
+                return back()->with('login-fail', 'Incorrect password');
+            }
+        }
+    }
 }

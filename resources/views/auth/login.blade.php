@@ -21,18 +21,30 @@
             </svg>
         </div>
         <h3 class="text-2xl font-bold text-center">Log in</h3>
-        <form action="">
-            <div class="mt-4">
+        <form method="post" action="{{ route('auth.check') }}">
 
+            @if(Session::get('login-fail'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
+                     role="alert">
+                    <span class="block sm:inline">{{ Session::get('login-fail') }}</span>
+                </div>
+            @endif
+
+            @csrf
+            <div class="mt-4">
                 <div class="mt-4">
                     <label class="block" for="email">Email</label>
                     <input type="text" placeholder="Email"
-                           class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                           class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                           name="email" value="{{ old('email') }}">
+                    <span class="text-red-800"> @error('email') {{ $message }} @enderror</span>
                 </div>
                 <div class="mt-4">
                     <label class="block">Password</label>
                     <input type="password" placeholder="Password"
-                           class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600">
+                           class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                           name="password" value="{{ old('password') }}">
+                    <span class="text-red-800"> @error('password') {{ $message }} @enderror</span>
                 </div>
                 <div class="flex">
                     <button type="submit"
