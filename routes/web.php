@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Auth routes
-Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
-Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+
 Route::post('/save', [AuthController::class, 'save'])->name('auth.save');
 Route::post('/check', [AuthController::class, 'check'])->name('auth.check');
+Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+//Route group to prevent access of unauthorized users.
+Route::group(['middleware' => ['AuthCheck']], function () {
+    // Auth routes
+    Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+    Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+
+    //User routes
+    Route::get('/account', [UserController::class, 'account']);
+});
+
