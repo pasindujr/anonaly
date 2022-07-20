@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,6 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/account', [UserController::class, 'account']);
 });
 
+//Route for anonymous feedback page which can be accessed through username.
+Route::get('/{username}', [FeedbackController::class, 'giveFeedback']);
+Route::post('/{username}/tell', [FeedbackController::class, 'saveFeedback']);

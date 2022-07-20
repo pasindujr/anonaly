@@ -22,7 +22,7 @@
             </svg>
         </div>
         <h3 class="text-2xl font-bold text-center">Join us</h3>
-        <form method="post" action="{{ route('auth.save') }}">
+        <form method="post" action="{{ route('auth.save') }}" enctype="multipart/form-data">
 
             @if(Session::get('register-success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4"
@@ -64,6 +64,14 @@
                         <option @if(old('gender') == 'other') selected @endif value="other">Other</option>
                     </select>
                     <span class="text-red-800"> @error('gender') {{ $message }} @enderror</span>
+                </div>
+
+                <div class="mt-4">
+                    <label class="block" for="email">Profile Photo</label>
+                    <input type="file" name="photo"
+                           class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
+                           value="{{ old('photo') }}">
+                    <span class="text-red-800"> @error('photo') {{ $message }} @enderror</span>
                 </div>
 
                 <div class="mt-4">

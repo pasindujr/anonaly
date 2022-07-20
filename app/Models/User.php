@@ -37,6 +37,10 @@ class User extends Authenticatable
         'is_admin',
     ];
 
+    public function feedbacks() {
+        return $this->hasMany(Feedback::class,);
+    }
+
     /**
      * The attributes that should be cast.
      *
