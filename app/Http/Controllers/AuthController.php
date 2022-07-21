@@ -25,15 +25,21 @@ class AuthController extends Controller
             'name' => 'required',
             'username' => 'required|min:3|max:10|unique:users',
             'gender' => 'required',
+            'photo' => 'mimes:jpg,png,jpeg|max:5048',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:5|max:14',
         ]);
+
+        $userImageName = time() . '-' . $request->username . '.' . $request->photo->extension();
+
+        $request->photo->move(public_path('userimages'), $userImageName);
 
         //Registering new user
         $user = new User;
         $user->name = $request->name;
         $user->username = $request->username;
         $user->gender = $request->gender;
+        $user->user_image_path = $userImageName;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $save = $user->save();

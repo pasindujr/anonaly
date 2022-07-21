@@ -8,11 +8,8 @@
     <title>Give feedback for {{ $userData->name }}</title>
 </head>
 <body>
-{{ $userData }}
 
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    {{--    Share your feedback to {{ $userData->name }}. They might share your feedback publicly.--}}
-    {{--    {{ $username }}--}}
 
     <div
         class="relative max-w-md mx-auto md:max-w-2xl mt-6 min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-xl mt-16">
@@ -21,7 +18,7 @@
                 <div class="w-full flex justify-center">
                     <div class="relative">
                         <img
-                            src="https://github.com/creativetimofficial/soft-ui-dashboard-tailwind/blob/main/build/assets/img/team-2.jpg?raw=true"
+                            src="{{ asset('userimages/'.$userData->user_image_path) }}"
                             class="shadow-xl rounded-full align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"/>
                     </div>
                 </div>

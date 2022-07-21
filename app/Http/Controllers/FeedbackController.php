@@ -11,14 +11,15 @@ class FeedbackController extends Controller
 {
     public function giveFeedback($username)
     {
-        $userData = User::select('id','name')
+        $userData = User::select('id', 'name', 'user_image_path')
             ->where('username', $username)
             ->first();
 
         return view('feedback.givefeedback', compact('userData', 'username'));
     }
 
-    public function saveFeedback(Request $request) {
+    public function saveFeedback(Request $request)
+    {
 
 
         $feedback = new Feedback;
