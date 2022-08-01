@@ -60,16 +60,18 @@ class AuthController extends Controller
 
         $userInfo = User::where('email', '=', $request->email)
             ->first();
+
+
         if (!$userInfo) {
             return back()->with('login-fail', 'Sorry, invalid email address');
         } else {
             if (Hash::check($request->password, $userInfo->password) and $userInfo->is_admin == 0) {
-                $request->session()->put('loggedUser', $userInfo->userId);
+                $request->session()->put('loggedUser', $userInfo->id);
                 $request->session()->put('isAdmin', 0);
                 return redirect('account');
 
             } elseif (Hash::check($request->password, $userInfo->password) and $userInfo->is_admin == 1) {
-                $request->session()->put('loggedUser', $userInfo->userId);
+                $request->session()->put('loggedUser', $userInfo->id);
                 $request->session()->put('isAdmin', 1);
                 return redirect('admin');
 
