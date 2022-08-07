@@ -23,7 +23,6 @@ Route::get('/', function () {
 
 Route::post('/save', [AuthController::class, 'save'])->name('auth.save');
 Route::post('/check', [AuthController::class, 'check'])->name('auth.check');
-Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 //Route group to prevent access of unauthorized users.
 Route::group(['middleware' => ['AuthCheck']], function () {
@@ -32,7 +31,11 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 
     //User routes
-    Route::get('/account', [UserController::class, 'account']);
+    Route::prefix('account')->group(function () {
+        Route::get('/', [UserController::class, 'account']);
+        Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    });
+
 });
 
 //Route for anonymous feedback page which can be accessed through username.
