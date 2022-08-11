@@ -34,6 +34,9 @@ Route::group(['middleware' => ['AuthCheck']], function () {
     Route::prefix('account')->group(function () {
         Route::get('/', [UserController::class, 'account']);
         Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+        //delete feedback in account
+        Route::get('/feedback/delete/{feedbackId}', [FeedbackController::class, 'deleteFeedback'])->name('feedback.delete');
     });
 
 });

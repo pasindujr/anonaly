@@ -17,7 +17,7 @@ class UserController extends Controller
             ->first();
 
         $userFeedbacks = DB::table('feedbacks')
-            ->select('feedback', 'created_at')
+            ->select('id', 'feedback', 'created_at')
             ->where('user_id', '=', session('loggedUser'))
             ->paginate(8);
 

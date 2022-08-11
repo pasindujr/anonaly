@@ -32,4 +32,13 @@ class FeedbackController extends Controller
         return back();
 
     }
+
+    public function deleteFeedback($feedbackId)
+    {
+        DB::table('feedbacks')
+            ->where('id', '=', $feedbackId)
+            ->delete();
+
+        return back()->with('info', 'Feedback deleted!');
+    }
 }
