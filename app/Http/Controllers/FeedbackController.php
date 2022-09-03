@@ -6,6 +6,7 @@ use App\Models\Feedback;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FeedbackController extends Controller
 {
@@ -15,13 +16,15 @@ class FeedbackController extends Controller
             ->where('username', $username)
             ->first();
 
+        if (session()->has('success_message')) {
+            Alert::toast(session()->get('success_message'), 'success');
+        }
+
         return view('feedback.givefeedback', compact('userData', 'username'));
     }
 
     public function saveFeedback(Request $request)
     {
-
-
         $feedback = new Feedback;
 
         $feedback->user_id = $request->user_id;
@@ -29,7 +32,7 @@ class FeedbackController extends Controller
         $feedback->feedback = $request->feedback;
         $feedback->save();
 
-        return back();
+        return back()->with('success_message', 'Feedback Submitted!');
 
     }
 
@@ -39,6 +42,8 @@ class FeedbackController extends Controller
             ->where('id', '=', $feedbackId)
             ->delete();
 
-        return back()->with('info', 'Feedback deleted!');
+        Alert::toast('Feedback Deleted!', 'info');
+
+        return back();
     }
 }

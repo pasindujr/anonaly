@@ -59,14 +59,6 @@
         </div>
         <!-- End of Navbar -->
 
-        @if(session()->has('info'))
-            <div class="col-md-4">
-                <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
-                    <span class="font-medium">{{ session()->get('info') }}</span>
-                </div>
-            </div>
-        @endif
-
         <div class="container mx-auto my-5 p-5">
             <div class="md:flex no-wrap md:-mx-2 ">
                 <!-- Left Side -->

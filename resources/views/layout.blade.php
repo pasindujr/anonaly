@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>@yield('title')</title>
+    @livewireStyles
 </head>
 <body>
 @yield('content')
+@include('sweetalert::alert')
+@livewireScripts
 </body>
 </html>
