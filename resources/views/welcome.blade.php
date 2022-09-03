@@ -5,4 +5,6 @@
     <h1 class="text-3xl font-bold font-bold">
         Hello world!
     </h1>
+
+    @livewire('counter')
 @endsection
