@@ -1,3 +1,5 @@
+@section('title', 'Login')
+
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
     <div class="px-8 py-6 mx-4 mt-4 text-left bg-white shadow-lg md:w-1/3 lg:w-1/3 sm:w-1/3">
         <div class="flex justify-center">
@@ -11,12 +13,12 @@
             </svg>
         </div>
         <h3 class="text-2xl font-bold text-center">Log in</h3>
-        <form method="post" action="{{ route('auth.check') }}">
+        <form wire:submit.prevent="handleLogin">
 
-            @if(Session::get('login-fail'))
+            @if($error)
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
                      role="alert">
-                    <span class="block sm:inline">{{ Session::get('login-fail') }}</span>
+                    <span class="block sm:inline">{{ $error }}</span>
                 </div>
             @endif
 
@@ -26,14 +28,14 @@
                     <label class="block" for="email">Email</label>
                     <input type="text" placeholder="Email"
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                           name="email" value="{{ old('email') }}">
+                           wire:model="email">
                     <span class="text-red-800"> @error('email') {{ $message }} @enderror</span>
                 </div>
                 <div class="mt-4">
                     <label class="block">Password</label>
                     <input type="password" placeholder="Password"
                            class="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
-                           name="password" value="{{ old('password') }}">
+                           wire:model="password">
                     <span class="text-red-800"> @error('password') {{ $message }} @enderror</span>
                 </div>
                 <div class="flex">

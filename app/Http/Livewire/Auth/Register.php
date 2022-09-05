@@ -21,6 +21,7 @@ class Register extends Component
     public $confirmPassword;
 
     public $error;
+    public $success = '';
 
     public function render()
     {
@@ -56,6 +57,7 @@ class Register extends Component
         $save = $user->save();
 
         if ($save) {
+            session()->flash('success', 'You are registered successfully! Please go to login page to login');
             return redirect('/register');
         } else {
             return $this->error = 'Something went wrong! Please try again.';
