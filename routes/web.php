@@ -7,6 +7,7 @@ use App\Http\Controllers\FeedbackController;
 use App\Http\Livewire\Home;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Register;
+use App\Http\Livewire\Account\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,24 +22,20 @@ use App\Http\Livewire\Auth\Register;
 
 Route::get('/', Home::class);
 
-
-Route::post('/save', [AuthController::class, 'save'])->name('auth.save');
-Route::post('/check', [AuthController::class, 'check'])->name('auth.check');
-
 //Route group to prevent access of unauthorized users.
+Route::group(['middleware' => ['auth']], function () {
+    //User routes
+    Route::prefix('account')->group(function () {
+
+        Route::get('/', Profile::class)->name('account');
+        Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
+    });
+});
+
 Route::group(['middleware' => ['AuthCheck']], function () {
     // Auth routes
     Route::get('/login', Login::class)->name('auth.login');
     Route::get('/register', Register::class)->name('auth.register');
-
-    //User routes
-    Route::prefix('account')->group(function () {
-        Route::get('/', [UserController::class, 'account']);
-        Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-        //delete feedback in account
-        Route::get('/feedback/delete/{feedbackId}', [FeedbackController::class, 'deleteFeedback'])->name('feedback.delete');
-    });
 
 });
 
