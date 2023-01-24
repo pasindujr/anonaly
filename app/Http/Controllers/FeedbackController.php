@@ -14,7 +14,7 @@ class FeedbackController extends Controller
     {
         $userData = User::select('id', 'name', 'user_image_path')
             ->where('username', $username)
-            ->first();
+            ->firstOrFail();
 
         if (session()->has('success_message')) {
             Alert::toast(session()->get('success_message'), 'success');
