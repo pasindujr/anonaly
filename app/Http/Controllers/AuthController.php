@@ -83,9 +83,8 @@ class AuthController extends Controller
 
     public function logout()
     {
-        if (session()->has('loggedUser')) {
             session()->flush();
             return redirect('/login');
-        }
+
     }
 }

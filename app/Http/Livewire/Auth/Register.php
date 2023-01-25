@@ -44,7 +44,7 @@ class Register extends Component
         ]);
         if ($this->photo) {
             $userImageName = time() . '-' . $this->username . '.' . $this->photo->extension();
-            $this->photo->storeAs($userImageName, public_path('userimages'));
+            $this->photo->storeAs(public_path('userimages'), $userImageName);
         }
 
         $user = new User;

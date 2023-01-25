@@ -3,7 +3,7 @@
 
 @section('content')
     <div class="bg-gray-100">
-        <div class="w-full text-white bg-main-color">
+        <div class="w-full text-white bg-[#2563EB]">
             <div x-data="{ open: false }"
                  class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
                 <div class="p-4 flex flex-row items-center justify-between">
@@ -47,11 +47,6 @@
                              class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                             <div
                                 class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
-                                <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                   href="#">Settings</a>
-                                <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                   href="#">Help</a>
-                                <div class="border-b"></div>
                                 <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                    href="{{ route('auth.logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
